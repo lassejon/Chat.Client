@@ -1,0 +1,75 @@
+{
+    "loggedInUser": {
+        "id": 1,
+        "username": "LasseJon",
+        "email": "lasss@live.dk",
+        "token": "jwt.token.here"
+    },
+    "chats": [
+        {
+            "id": 1,
+            "name": "Vennerne",
+            "lastMessage": "Hej",
+            "lastMessageTime": "2020-12-12T12:12:12",
+            "unreadMessages": 0
+        },
+        {
+            "id": 2,
+            "name": "Olatz",
+            "lastMessage": "Hej Lasse",
+            "lastMessageTime": "2020-12-12T12:12:12",
+            "lastMessageSender": "Olatz",
+            "unreadMessages": 0
+        }
+    ],
+    "messages": [
+        {
+            "id": 1,
+            "chatId": 1,
+            "senderId": 1,
+            "sender": "LasseJon",
+            "message": "Hej",
+            "time": "2020-12-12T12:12:12"
+        },
+        {
+            "id": 2,
+            "chatId": 2,
+            "senderId": 2,
+            "sender": "Olatz",
+            "message": "Hej Lasse",
+            "time": "2020-12-12T12:12:12"
+        },
+        {
+            "id": 3,
+            "chatId": 1,
+            "senderId": 1,
+            "sender": "LasseJon",
+            "message": "Hvordan går det?",
+            "time": "2020-12-12T12:12:12"
+        },
+        {
+            "id": 4,
+            "chatId": 2,
+            "senderId": 1,
+            "sender": "LasseJon",
+            "message": "Hvordan går det?",
+            "time": "2020-12-12T12:12:12"
+        },
+        {
+            "id": 5,
+            "chatId": 1,
+            "senderId": 1,
+            "sender": "LasseJon",
+            "message": "Hvordan går det?",
+            "time": "2020-12-12T12:12:12"
+        },
+        {
+            "id": 6,
+            "chatId": 2,
+            "senderId": 1,
+            "sender": "LasseJon",
+            "message": "Hvordan går det?",
+            "time": "2020-12-12T12:12:12"
+        }
+    ]
+}
