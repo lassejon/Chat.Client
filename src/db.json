@@ -71,5 +71,12 @@
             "message": "Hvordan går det?",
             "time": "2020-12-12T12:12:12"
         }
-    ]
+    ],
+    "login": {
+        "id": "secretId",
+        "email": "lasss@live.dk",
+        "firstName": "Lasse Jon",
+        "lastName": "Jonsson",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJsYXNzc0BsaXZlLmRrIiwiL2luZGV4IjoiMSIsIi9pZCI6IjAyNDYxY2IxLTRmZjQtNDkzMy04MGE3LWU0YTJiMzdhZDA2MSIsImp0aSI6IkU2OUEyODAzLUYwQzEtNEU1NS05NDg4LTcxRDJFOUU5ODQwMyIsImV4cCI6MTcxNTk5NDY1NSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzAiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDozMDAwIn0.HcE7izT3D_aZhUk1ebDdAAXtIiyY7fEAl7gbGiWEZhM"
+    }
 }
