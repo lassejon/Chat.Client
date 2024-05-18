@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Login from '../dtos/requests/Login';
 import AuthenticatedUser from '../dtos/responses/AuthenticatedUser';
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import useSignIn from 'react-auth-kit/hooks/useSignIn';
-import { useOutletContext } from "react-router-dom";
+// import { useOutletContext } from "react-router-dom";
+import { AuthContext } from '../layouts/MainLayout';
 
 const LoginPage = ({ login }: { login: (loginRequest: Login) => Promise<[boolean, AuthenticatedUser]> }) => {
     const [loginRequest, setLoginRequest] = useState<Login>(new Login());
     const navigate = useNavigate();
     const signIn = useSignIn<AuthenticatedUser>();
-    const setIsAuthenticated = useOutletContext();
+    // const setIsAuthenticated = useOutletContext();
+    const state = useContext(AuthContext);
 
     const submitLogin = async (e: React.FormEvent): Promise<void> => {
         e.preventDefault();
@@ -35,8 +37,8 @@ const LoginPage = ({ login }: { login: (loginRequest: Login) => Promise<[boolean
         if (!isSignedIn) {
             toast.error('Login failed');
         } else {
-            console.log('login' + setIsAuthenticated);
-            setIsAuthenticated(true);
+            console.log('login' + state.setIsAuthenticated);
+            state.setIsAuthenticated(true);
             toast.success('Login successful');
             navigate('/secure');
         }

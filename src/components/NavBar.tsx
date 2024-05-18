@@ -3,10 +3,12 @@ import logo from '../assets/react.svg'
 import SignOutComponent from './SignOutComponent';
 import AuthenticatedUser from '../dtos/responses/AuthenticatedUser'
 import useAuthUser from 'react-auth-kit/hooks/useAuthUser';
+import { useContext } from 'react';
+import { AuthContext } from '../layouts/MainLayout';
 
-const NavBar = ({ isAuthenticated, setIsAuthenticated }) => {
-
+const NavBar = () => {
     const authUser = useAuthUser<AuthenticatedUser>()
+    const authState = useContext(AuthContext);
 
     const linkClass = ({ isActive }: { isActive: boolean }): string => {
         return isActive
@@ -33,12 +35,12 @@ const NavBar = ({ isAuthenticated, setIsAuthenticated }) => {
                         <div className="md:ml-auto">
                             <div className="flex space-x-2">
 
-                                {!isAuthenticated ?
+                                {!authState.isAuthenticated ?
                                     <NavLink to={'/login'} className={linkClass}>Login</NavLink>
                                     :
                                     <>
                                         <NavLink to="/preferences" className={linkClass}>{authUser?.firstName}</NavLink>
-                                        <SignOutComponent setIsAuthenticated={setIsAuthenticated} classNames={'bg-red-800 text-white hover:bg-red-900 hover:text-white rounded-md px-3 py-2'} />
+                                        <SignOutComponent classNames={'bg-red-800 text-white hover:bg-red-900 hover:text-white rounded-md px-3 py-2'} />
                                     </>
                                 }
                             </div>

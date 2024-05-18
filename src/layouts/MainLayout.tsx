@@ -3,7 +3,9 @@ import { Outlet } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
-import { useState } from 'react'
+import { useState, createContext } from 'react'
+
+export const AuthContext = createContext({ isAuthenticated: false, setIsAuthenticated: (arg: boolean) => { arg } })
 
 const MainLayout = () => {
     const authenticated = useIsAuthenticated()
@@ -11,11 +13,11 @@ const MainLayout = () => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(authenticated)
 
     return (
-        <>
-            <NavBar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
-            <Outlet context={setIsAuthenticated} />
+        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+            <NavBar />
+            <Outlet />
             <ToastContainer />
-        </>
+        </AuthContext.Provider>
     )
 }
 
