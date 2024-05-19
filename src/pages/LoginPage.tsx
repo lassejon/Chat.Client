@@ -5,14 +5,14 @@ import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import useSignIn from 'react-auth-kit/hooks/useSignIn';
 // import { useOutletContext } from "react-router-dom";
-import { AuthContext } from '../layouts/MainLayout';
+import { AuthenticationContext } from '../layouts/MainLayout';
 
 const LoginPage = ({ login }: { login: (loginRequest: Login) => Promise<[boolean, AuthenticatedUser]> }) => {
     const [loginRequest, setLoginRequest] = useState<Login>(new Login());
     const navigate = useNavigate();
     const signIn = useSignIn<AuthenticatedUser>();
     // const setIsAuthenticated = useOutletContext();
-    const state = useContext(AuthContext);
+    const state = useContext(AuthenticationContext);
 
     const submitLogin = async (e: React.FormEvent): Promise<void> => {
         e.preventDefault();

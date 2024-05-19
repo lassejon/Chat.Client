@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify'
 import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
 import { useState, createContext } from 'react'
 
-export const AuthContext = createContext({ isAuthenticated: false, setIsAuthenticated: (arg: boolean) => { arg } })
+export const AuthenticationContext = createContext({ isAuthenticated: false, setIsAuthenticated: (arg: boolean) => { arg } })
 
 const MainLayout = () => {
     const authenticated = useIsAuthenticated()
@@ -13,11 +13,11 @@ const MainLayout = () => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(authenticated)
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+        <AuthenticationContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
             <NavBar />
             <Outlet />
             <ToastContainer />
-        </AuthContext.Provider>
+        </AuthenticationContext.Provider>
     )
 }
 

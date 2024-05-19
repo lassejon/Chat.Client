@@ -1,7 +1,8 @@
 export default class Message {
     id: string = ''
-    name: string = ''
-    userId: string = ''
+    chatId: string = ''
+    senderId: string = ''
+    sender: string = ''
     message: string = ''
-    createdAt: string = ''
+    time: Date = new Date()
 }

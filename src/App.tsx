@@ -9,6 +9,7 @@ import AuthenticatedUser from './dtos/responses/AuthenticatedUser'
 import AuthProvider from 'react-auth-kit';
 import store from './services/authentication/AuthenticationStore';
 import AuthOutlet from '@auth-kit/react-router/AuthOutlet'
+import ChatBox from './components/ChatBox'
 
 function App() {
   const login = async (loginRequest: Login): Promise<[boolean, AuthenticatedUser]> => {
@@ -40,6 +41,7 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="/*" element={<NotFoundPage />} />
         <Route path="/login" element={<LoginPage login={login} />} />
+        <Route path="/chat" element={<ChatBox />} />
         <Route element={<AuthOutlet fallbackPath='/login' />}>
           <Route path="/secure" element={<div>very secret sauce</div>} />
         </Route>

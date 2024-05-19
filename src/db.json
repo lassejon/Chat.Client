@@ -24,59 +24,64 @@
     ],
     "messages": [
         {
-            "id": 1,
-            "chatId": 1,
-            "senderId": 1,
-            "sender": "LasseJon",
-            "message": "Hej",
-            "time": "2020-12-12T12:12:12"
-        },
-        {
-            "id": 2,
-            "chatId": 2,
-            "senderId": 2,
-            "sender": "Olatz",
-            "message": "Hej Lasse",
-            "time": "2020-12-12T12:12:12"
-        },
-        {
-            "id": 3,
-            "chatId": 1,
-            "senderId": 1,
-            "sender": "LasseJon",
-            "message": "Hvordan går det?",
-            "time": "2020-12-12T12:12:12"
-        },
-        {
-            "id": 4,
-            "chatId": 2,
-            "senderId": 1,
-            "sender": "LasseJon",
-            "message": "Hvordan går det?",
-            "time": "2020-12-12T12:12:12"
-        },
-        {
-            "id": 5,
-            "chatId": 1,
-            "senderId": 1,
-            "sender": "LasseJon",
-            "message": "Hvordan går det?",
-            "time": "2020-12-12T12:12:12"
-        },
-        {
-            "id": 6,
-            "chatId": 2,
-            "senderId": 1,
-            "sender": "LasseJon",
-            "message": "Hvordan går det?",
-            "time": "2020-12-12T12:12:12"
+            "id": "2",
+            "messages": [
+                {
+                    "id": 1,
+                    "chatId": 2,
+                    "senderId": 1,
+                    "sender": "LasseJon",
+                    "message": "Hej Olatz",
+                    "time": "2020-12-12T12:12:12"
+                },
+                {
+                    "id": 2,
+                    "chatId": 2,
+                    "senderId": 2,
+                    "sender": "Olatz",
+                    "message": "Hej Lasse",
+                    "time": "2020-12-12T12:12:12"
+                },
+                {
+                    "id": 3,
+                    "chatId": 2,
+                    "senderId": 1,
+                    "sender": "LasseJon",
+                    "message": "Hvordan går det?",
+                    "time": "2020-12-12T12:12:12"
+                },
+                {
+                    "id": 4,
+                    "chatId": 2,
+                    "senderId": 2,
+                    "sender": "Olatz",
+                    "message": "Det går rigtigt bra. Hvad med dig?",
+                    "time": "2020-12-12T12:12:12"
+                },
+                {
+                    "id": 5,
+                    "chatId": 2,
+                    "senderId": 1,
+                    "sender": "LasseJon",
+                    "message": "Fint haha",
+                    "time": "2020-12-12T12:12:12"
+                },
+                {
+                    "id": 6,
+                    "chatId": 2,
+                    "senderId": 2,
+                    "sender": "Olatz",
+                    "message": "Nice skat <3",
+                    "time": "2020-12-12T12:12:12"
+                }
+            ]
         }
     ],
     "login": {
-        "id": "secretId",
+        "id": 1,
         "email": "lasss@live.dk",
         "firstName": "Lasse Jon",
         "lastName": "Jonsson",
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJsYXNzc0BsaXZlLmRrIiwiL2luZGV4IjoiMSIsIi9pZCI6IjAyNDYxY2IxLTRmZjQtNDkzMy04MGE3LWU0YTJiMzdhZDA2MSIsImp0aSI6IkFBMTcyQzYxLTc1M0UtNDNBRS1COURDLTJERTU0RTJFMjAwQiIsImV4cCI6MTcxNjA0NzU3NywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzAiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDozMDAwIn0.7gT1KaPPXBACIS-gIFIRWmi9xyCwmGfTdMuuXGVfiBs"
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJsYXNzc0BsaXZlLmRrIiwiL2luZGV4IjoiMSIsIi9pZCI6IjAyNDYxY2IxLTRmZjQtNDkzMy04MGE3LWU0YTJiMzdhZDA2MSIsImp0aSI6IjdFNUM5QTU4LTNGRkYtNEQzMC1CMzVFLTk1RjMxQjYzNTVBMCIsImV4cCI6MTcxNjEyNjEzOCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzAiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDozMDAwIn0.fEutBySD5p02oZ7p9rjWHioPpPqotHBhZAl-P_tB8C4"
     }
 }

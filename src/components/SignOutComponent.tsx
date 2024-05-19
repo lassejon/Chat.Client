@@ -2,12 +2,12 @@ import useSignOut from 'react-auth-kit/hooks/useSignOut';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { AuthContext } from '../layouts/MainLayout';
+import { AuthenticationContext } from '../layouts/MainLayout';
 
 const SignOutComponent = ({ classNames }: { classNames: string }) => {
     const signOut = useSignOut()
     const navigate = useNavigate()
-    const state = useContext(AuthContext);
+    const state = useContext(AuthenticationContext);
 
     const handleSignOut = () => {
         signOut()

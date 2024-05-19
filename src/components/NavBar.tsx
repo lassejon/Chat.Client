@@ -4,11 +4,11 @@ import SignOutComponent from './SignOutComponent';
 import AuthenticatedUser from '../dtos/responses/AuthenticatedUser'
 import useAuthUser from 'react-auth-kit/hooks/useAuthUser';
 import { useContext } from 'react';
-import { AuthContext } from '../layouts/MainLayout';
+import { AuthenticationContext } from '../layouts/MainLayout';
 
 const NavBar = () => {
     const authUser = useAuthUser<AuthenticatedUser>()
-    const authState = useContext(AuthContext);
+    const authState = useContext(AuthenticationContext);
 
     const linkClass = ({ isActive }: { isActive: boolean }): string => {
         return isActive
