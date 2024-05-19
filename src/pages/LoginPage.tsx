@@ -17,7 +17,7 @@ const LoginPage = ({ login }: { login: (loginRequest: Login) => Promise<[boolean
     const submitLogin = async (e: React.FormEvent): Promise<void> => {
         e.preventDefault();
         const [authenticated, authenticatedUser] = await login(loginRequest);
-        if (!authenticated || !authenticatedUser || !authenticatedUser.token) {
+        if (!authenticated || !authenticatedUser || !authenticatedUser.jwtToken.token) {
             toast.error('Login failed');
             return;
         }
@@ -26,7 +26,7 @@ const LoginPage = ({ login }: { login: (loginRequest: Login) => Promise<[boolean
 
         const authConfig = {
             auth: {
-                token: authenticatedUser.token,
+                token: authenticatedUser.jwtToken.token,
                 type: 'Bearer',
             },
             userState: authenticatedUser,
@@ -45,21 +45,21 @@ const LoginPage = ({ login }: { login: (loginRequest: Login) => Promise<[boolean
     };
 
     return (
-        <section className="bg-indigo-50">
+        <section className="bg-gray-900">
             <div className="container m-auto max-w-2xl py-24">
                 <div
-                    className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0"
+                    className="bg-gray-800 px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0"
                 >
-                    <form onSubmit={submitLogin}>
-                        <h2 className="text-3xl text-center font-semibold mb-6">Login</h2>
+                    <form onSubmit={submitLogin} className='text-left'>
+                        <h2 className="text-center text-3xl font-extrabold text-gray-600 dark:text-gray-200 p-3">Login</h2>
 
                         <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2">Email</label>
+                            <label className="block text-xl font-extrabold text-gray-600 dark:text-gray-200 p-3">Email</label>
                             <input
                                 type="text"
                                 id="email"
                                 name="email"
-                                className="border rounded w-full py-2 px-3 mb-2"
+                                className="bg-gray-700 text-gray-700 dark:text-gray-200 dark:bg-gray-700 border rounded w-full py-2 px-3 mb-2"
                                 placeholder="mikkel@hansen.dk"
                                 required
                                 value={loginRequest?.email}
@@ -68,12 +68,12 @@ const LoginPage = ({ login }: { login: (loginRequest: Login) => Promise<[boolean
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2">Email</label>
+                            <label className="block text-xl font-extrabold text-gray-600 dark:text-gray-200 p-3">Password</label>
                             <input
                                 type="password"
                                 id="password"
                                 name="password"
-                                className="border rounded w-full py-2 px-3 mb-2"
+                                className="bg-gray-700 text-gray-700 dark:text-gray-200 dark:bg-gray-700 border rounded w-full py-2 px-3 mb-2"
                                 placeholder="*********"
                                 required
                                 value={loginRequest?.password}

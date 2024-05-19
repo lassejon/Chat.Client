@@ -1,9 +1,12 @@
 {
-    "loggedInUser": {
+    "login": {
         "id": 1,
-        "username": "LasseJon",
+        "firstName": "Lasse Jon",
+        "lastName": "Marquardt Frederiksen",
         "email": "lasss@live.dk",
-        "token": "jwt.token.here"
+        "jwtToken": {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJsYXNzc0BsaXZlLmRrIiwiL2luZGV4IjoiMSIsIi9pZCI6IjAyNDYxY2IxLTRmZjQtNDkzMy04MGE3LWU0YTJiMzdhZDA2MSIsImp0aSI6IkQ5MzhCRDBDLTUyMTItNDEyNS1CNEQxLUYyRkVBNzQ5QkRCQiIsImV4cCI6MTcxNjE1ODM0OSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzAiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDozMDAwIn0.cpVxQFeCDqwWEaZojRMixaskFERNNSsN5-9ICyq2zC8"
+        }
     },
     "chats": [
         {
@@ -11,6 +14,7 @@
             "name": "Vennerne",
             "lastMessage": "Hej",
             "lastMessageTime": "2020-12-12T12:12:12",
+            "lastMessageSender": "LasseJon",
             "unreadMessages": 0
         },
         {
@@ -20,6 +24,14 @@
             "lastMessageTime": "2020-12-12T12:12:12",
             "lastMessageSender": "Olatz",
             "unreadMessages": 0
+        },
+        {
+            "id": 3,
+            "name": "Tobias",
+            "lastMessage": "Skal vi mødes i morgen?",
+            "lastMessageTime": "2020-12-12T12:12:12",
+            "lastMessageSender": "Olatz",
+            "unreadMessages": 1
         }
     ],
     "messages": [
@@ -75,13 +87,72 @@
                     "time": "2020-12-12T12:12:12"
                 }
             ]
+        },
+        {
+            "id": "1",
+            "messages": [
+                {
+                    "id": 12,
+                    "chatId": 1,
+                    "senderId": 1,
+                    "sender": "Lasse Jon",
+                    "message": "Drengene, skal vi snart tage på kano/druktur igen??",
+                    "time": "2020-12-12T12:12:12"
+                },
+                {
+                    "id": 22,
+                    "chatId": 1,
+                    "senderId": 2,
+                    "sender": "Nicolaj",
+                    "message": "Så skal det være i august, fordi jeg er i udlandet hele juli.",
+                    "time": "2020-12-12T12:12:12"
+                },
+                {
+                    "id": 32,
+                    "chatId": 1,
+                    "senderId": 1,
+                    "sender": "Benjamin",
+                    "message": "Skal du ud og gøre de italienske landeveje usikre igen?",
+                    "time": "2020-12-12T12:12:12"
+                },
+                {
+                    "id": 42,
+                    "chatId": 1,
+                    "senderId": 2,
+                    "sender": "Nicolaj",
+                    "message": "Haha, nej. Jeg skal bare arbejde fra vores Schweisiske kontorer :p",
+                    "time": "2020-12-12T12:12:12"
+                },
+                {
+                    "id": 52,
+                    "chatId": 1,
+                    "senderId": 1,
+                    "sender": "Lasse Jon",
+                    "message": "August er super fint for mig, men lad os gøre det over en forlænget weekend (mandag og fredag med måske??), så vi kan få mest ud af det.",
+                    "time": "2020-12-12T12:12:12"
+                },
+                {
+                    "id": 62,
+                    "chatId": 1,
+                    "senderId": 2,
+                    "sender": "Alexander",
+                    "message": "Jeg skal lige tjekke min kalender og se om jeg er ledig i august. Jeg tror dog det skal gå.",
+                    "time": "2020-12-12T12:12:12"
+                }
+            ]
+        },
+        {
+            "id": "3",
+            "messages": [
+                {
+                    "id": 123,
+                    "chatId": 3,
+                    "senderId": 3,
+                    "sender": "Tobias",
+                    "message": "Skal vi købe de billetter, vi snakkede om?",
+                    "time": "2024-12-12T12:12:12"
+                }
+            ]
         }
-    ],
-    "login": {
-        "id": 1,
-        "email": "lasss@live.dk",
-        "firstName": "Lasse Jon",
-        "lastName": "Jonsson",
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJsYXNzc0BsaXZlLmRrIiwiL2luZGV4IjoiMSIsIi9pZCI6IjAyNDYxY2IxLTRmZjQtNDkzMy04MGE3LWU0YTJiMzdhZDA2MSIsImp0aSI6IjdFNUM5QTU4LTNGRkYtNEQzMC1CMzVFLTk1RjMxQjYzNTVBMCIsImV4cCI6MTcxNjEyNjEzOCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzAiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDozMDAwIn0.fEutBySD5p02oZ7p9rjWHioPpPqotHBhZAl-P_tB8C4"
-    }
+    ]
 }

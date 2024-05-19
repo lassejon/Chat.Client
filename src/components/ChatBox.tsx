@@ -1,14 +1,35 @@
-import React from 'react'
+import { useState, useEffect, createContext } from 'react'
 import ConversationsBar from './ConversationsBar';
-import Messages from './Messages';
+import Chat from './Chat';
+import Conversation from '../dtos/responses/Conversation';
+
+export const ConversationContext = createContext({ currentConversation: new Conversation(), setCurrentConversation: (arg: Conversation) => { arg } });
 
 const ChatBox = () => {
+    const [conversations, setConversations] = useState<Conversation[]>([])
+    const [currentConversation, setCurrentConversation] = useState(conversations[0])
+    console.log("yooo")
+    console.log(currentConversation)
+    console.log(conversations)
+
+
+    useEffect(() => {
+        fetch('/api/chats')
+            .then(response => response.json())
+            .then(data => {
+                setConversations(data)
+                setCurrentConversation(data[0]);
+                console.log("data")
+            })
+            .catch(err => console.log("error: " + err));
+    }, []);
+
     return (
-        <div className="">
-            <div className="flex bg-white dark:bg-indigo-900">
+        <ConversationContext.Provider value={{ currentConversation, setCurrentConversation }}>
+            <div className="flex bg-white dark:bg-gray-900">
                 <div className="w-80 h-screen dark:bg-gray-800 bg-gray-100 p-2 hidden md:block">
                     <div className="h-full overflow-y-auto">
-                        <div className="text-xl font-extrabold text-gray-600 dark:text-gray-200 p-3">Chikaa</div>
+                        <div className="text-xl font-extrabold text-gray-600 dark:text-gray-200 p-3">Conversations</div>
                         <div className="search-chat flex p-3">
                             <input className="input text-gray-700 dark:text-gray-200 text-sm p-3 focus:outline-none bg-gray-200 dark:bg-gray-700  w-full rounded-l-md" type="text" placeholder="Search Messages" />
                             <div className="bg-gray-200 dark:bg-gray-700 flex justify-center items-center pr-3 text-gray-400 rounded-r-md">
@@ -18,14 +39,14 @@ const ChatBox = () => {
                             </div>
                         </div>
                         <div className="text-lg font-semibol text-gray-600 dark:text-gray-200 p-3">Recent</div>
-                        <ConversationsBar />
+                        <ConversationsBar conversations={conversations} />
                     </div>
                 </div>
                 <div className="flex-grow  h-screen p-2 rounded-md">
-                    <Messages />
+                    <Chat />
                 </div>
             </div>
-        </div>
+        </ConversationContext.Provider>
     )
 }
 

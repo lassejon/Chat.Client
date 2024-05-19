@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import https from 'https'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,6 +11,8 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:44330',
         changeOrigin: true,
+        secure: false,
+        // agent: https.Agent(),
         rewrite: (path) => path.replace(/^\/api/, '')
       }
     }

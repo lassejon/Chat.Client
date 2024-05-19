@@ -20,9 +20,11 @@ function App() {
     //   },
     //   body: JSON.stringify(loginRequest)
     // })
+    // console.log('res');
+    // console.log(res);
 
-    console.log('loginRequest');
-    console.log(loginRequest);
+    // console.log('loginRequest');
+    // console.log(loginRequest);
     const res = await fetch('http://localhost:44330/login', {
       method: 'GET',
       headers: {
