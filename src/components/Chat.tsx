@@ -3,15 +3,21 @@ import Message from './Message'
 import { ConversationContext } from './ChatBox'
 import { useContext, useEffect, useState } from 'react'
 import SendMessage from './SendMessage';
+import CreateNewConversation from './CreateNewConversation';
 
 const Chat = () => {
     const [messages, setMessages] = useState<MessageDto[]>([])
     const conversationState = useContext(ConversationContext);
 
     useEffect(() => {
-        fetch(`/api/messages/${conversationState?.currentConversation?.id}`)
+        fetch(`/api/conversations/${conversationState?.currentConversation?.id ?? ''}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${localStorage.getItem('_auth_type')} ${localStorage.getItem('_auth')}`
+            }
+        })
             .then(response => response.json())
-            .then(data => setMessages(data.messages))
+            .then(data => setMessages(data.messages ?? []))
             .catch(err => {
                 console.log(err)
                 setMessages([]);
@@ -30,20 +36,20 @@ const Chat = () => {
                     <div className="border rounded-full border-white p-1/2">
                         <img className="w-14 h-14 rounded-full" src="https://cdn.pixabay.com/photo/2017/01/31/21/23/avatar-2027366_960_720.png" alt="avatar" />
                     </div>
-                    <div className="flex-grow p-2 text-left">
-                        <div className="text-md text-gray-50 font-semibold">{conversationState?.currentConversation?.name}</div>
-                        {/* <div className="flex items-center">
-                            <div className="w-2 h-2 bg-green-300 rounded-full"></div>
-                            <div className="text-xs text-gray-50 ml-1">
-                                Online
+                    {conversationState?.createConversation ?
+                        <CreateNewConversation />
+                        :
+                        <>
+                            <div className="flex-grow p-2 text-left">
+                                <div className="text-md text-gray-50 font-semibold">{conversationState?.currentConversation?.name}</div>
                             </div>
-                        </div> */}
-                    </div>
-                    <div className="p-2 text-white cursor-pointer hover:bg-purple-500 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                        </svg>
-                    </div>
+                            <div className="p-2 text-white cursor-pointer hover:bg-purple-500 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                                </svg>
+                            </div>
+                        </>
+                    }
                 </div>
             </div>
             <div className="w-full flex-grow bg-gray-100 dark:bg-gray-900 my-2 p-2 overflow-y-auto">

@@ -29,7 +29,7 @@ const ConversationsBarItem: React.FC<{ conversation: Conversation; active: boole
                     <div className="flex-grow p-2">
                         <div className="flex justify-between items-center">
                             <div className="text-sm font-medium text-gray-700 dark:text-gray-200">{conversation.name}</div>
-                            <div className="text-xs text-gray-400 dark:text-gray-300">{conversation.lastMessageTime}</div>
+                            <div className="text-xs text-gray-400 dark:text-gray-300">{conversation.latestMessageAt}</div>
                         </div>
                         <div className="text-left text-sm text-gray-500 dark:text-gray-400 w-40 truncate">{conversation.lastMessage}</div>
                     </div>

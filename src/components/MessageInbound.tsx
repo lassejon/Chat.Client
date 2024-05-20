@@ -1,23 +1,40 @@
 import Message from "../dtos/requests/Message";
+import { useContext } from "react";
+import { ConversationContext } from "./ChatBox";
+import { format, isAfter, subDays } from 'date-fns';
 
 function MessageInbound({ message }: { message: Message }) {
+    const authenticationState = useContext(ConversationContext);
+    const messageSender = authenticationState?.currentConversation?.participants.find(participant => participant.id === message.userId);
+
+    const formatDate = (date: Date): string => {
+        const oneWeekAgo = subDays(new Date(), 7);
+        if (isAfter(date, oneWeekAgo)) {
+            // Date is within the last week
+            return format(date, 'EEEE h:mm:ss a');
+        } else {
+            // Date is more than a week old
+            return format(date, 'MMMM do, yyyy h:mm:ss a');
+        }
+    };
+    const dateString = formatDate(message.sentAt)
+
     return (
         <div className="flex items-end w-3/4 align text-left" id={message.id}>
             {/* <img className="w-8 h-8 m-3 rounded-full" src="https://cdn.pixabay.com/photo/2017/01/31/21/23/avatar-2027366_960_720.png" alt="avatar" /> */}
             <div className="w-8 m-3 rounded-full" />
             <div className="p-3 bg-purple-300 dark:bg-gray-800 mx-3 my-1 max-w-80 rounded-2xl rounded-bl-none sm:w-3/4 md:w-3/6">
                 <div className="text-xs text-gray-600 dark:text-gray-200">
-                    {message.sender}
+                    {messageSender?.firstName}
                 </div>
                 <div className="text-xs text-gray-100 hidden dark:text-gray-200">
-                    {message.senderId}
+                    {message.userId}
                 </div>
                 <div className="text-gray-700 dark:text-gray-200">
-                    {message.message}
+                    {message.content}
                 </div>
                 <div className="text-xs text-gray-400">
-                    {/* {message.time.toDateString()} */}
-                    <p>{message.time}</p>
+                    <p>{dateString}</p>
                 </div>
             </div>
         </div>

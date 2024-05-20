@@ -13,24 +13,24 @@ import ChatBox from './components/ChatBox'
 
 function App() {
   const login = async (loginRequest: Login): Promise<[boolean, AuthenticatedUser]> => {
-    // const res = await fetch('/api/login', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(loginRequest)
-    // })
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(loginRequest)
+    })
     // console.log('res');
     // console.log(res);
 
     // console.log('loginRequest');
     // console.log(loginRequest);
-    const res = await fetch('http://localhost:44330/login', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+    // const res = await fetch('http://localhost:44330/login', {
+    //   method: 'GET',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // })
 
     const data = ((await res.json()) ?? {}) as AuthenticatedUser;
 

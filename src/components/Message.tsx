@@ -10,8 +10,8 @@ const Message = ({ message }: { message: MessageDto }) => {
     return (
         <>
             {
-                authenticatedUserId === message.senderId ?
-                    <MessageOutbound message={message.message} id={message.id} />
+                authenticatedUserId === message.userId ?
+                    <MessageOutbound message={message.content} id={message.id} />
                     :
                     <MessageInbound message={message} />
             }

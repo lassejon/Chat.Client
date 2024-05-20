@@ -9,11 +9,11 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'http://localhost:44330',
+        target: 'https://localhost:44330',
         changeOrigin: true,
         secure: false,
-        // agent: https.Agent(),
-        rewrite: (path) => path.replace(/^\/api/, '')
+        agent: https.Agent(),
+        // rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
   }

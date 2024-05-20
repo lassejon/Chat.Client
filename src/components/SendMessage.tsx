@@ -20,15 +20,15 @@ const SendMessage = ({ setMessages }: { setMessages: React.Dispatch<React.SetSta
         const messageToSend: Message = {
             id: crypto.randomUUID(),
             chatId: conversationState!.currentConversation?.id,
-            message: message,
-            senderId: authUser!.id,
+            content: message,
+            userId: authUser!.id,
             sender: authUser!.firstName,
-            time: new Date(),
+            sentAt: new Date(),
         };
         const currentConversation = { ...conversationState!.currentConversation };
         if (currentConversation) {
-            currentConversation.lastMessage = messageToSend.message;
-            currentConversation.lastMessageTime = messageToSend.time.toISOString();
+            currentConversation.lastMessage = messageToSend.content;
+            currentConversation.latestMessageAt = messageToSend.sentAt.toISOString();
         }
 
         // conversationState?.setCurrentConversation(currentConversation!);
