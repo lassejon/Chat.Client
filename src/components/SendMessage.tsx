@@ -1,61 +1,47 @@
-import { useState, useContext } from "react";
+import { useState, useContext, FormEvent } from "react";
 import { IoMdSend } from "react-icons/io";
 import { ConversationContext } from "./ChatBox";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import AuthenticatedUser from "../dtos/responses/AuthenticatedUser";
+import Message from "../dtos/requests/Message";
 
-const SendMessage = ({ setMessages }) => {
+const SendMessage = ({ setMessages }: { setMessages: React.Dispatch<React.SetStateAction<Message[]>> }) => {
     const [message, setMessage] = useState("");
     const conversationState = useContext(ConversationContext);
     const authUser = useAuthUser<AuthenticatedUser>();
-    const sendMessage = (event) => {
+
+    const sendMessage = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (message.trim() === "") {
             alert("Enter valid message");
             return;
         }
-        console.log(message);
-        setMessage("");
 
-        // send message to server
-        setMessages((prevMessages) => {
-            const messageToSend = {
-                id: prevMessages.length + 1,
-                chatId: conversationState.currentConversation.id,
-                message: message,
-                senderId: authUser?.id,
-                sender: authUser?.firstName,
-                time: new Date().toISOString(),
-            };
-
-            const currentConversation = conversationState.currentConversation;
+        const messageToSend: Message = {
+            id: crypto.randomUUID(),
+            chatId: conversationState!.currentConversation?.id,
+            message: message,
+            senderId: authUser!.id,
+            sender: authUser!.firstName,
+            time: new Date(),
+        };
+        const currentConversation = { ...conversationState!.currentConversation };
+        if (currentConversation) {
             currentConversation.lastMessage = messageToSend.message;
-            currentConversation.lastMessageTime = messageToSend.time;
-            conversationState.setCurrentConversation(currentConversation);
-            return [
-                ...prevMessages,
-                messageToSend
-            ];
-        });
+            currentConversation.lastMessageTime = messageToSend.time.toISOString();
+        }
+
+        // conversationState?.setCurrentConversation(currentConversation!);
+        const updatedConversations = conversationState!.conversations.map(conv =>
+            conv.id === currentConversation.id ? currentConversation : conv
+        );
+
+        conversationState?.setConversations(updatedConversations);
+
+        setMessages((prevMessages: Message[]) => [...prevMessages, messageToSend]);
+        setMessage("");
     };
 
-    // const sendMessage = async (event) => {
-    //     event.preventDefault();
-    //     if (message.trim() === "") {
-    //         alert("Enter valid message");
-    //         return;
-    //     }
-    //     const { uid, displayName, photoURL } = auth.currentUser;
-    //     await addDoc(collection(db, "messages"), {
-    //         text: message,
-    //         name: displayName,
-    //         avatar: photoURL,
-    //         createdAt: serverTimestamp(),
-    //         uid,
-    //     });
-    //     setMessage("");
-    //     scroll.current.scrollIntoView({ behavior: "smooth" });
-    // };
     return (
         <div className="h-15  p-3 rounded-xl rounded-tr-none rounded-tl-none bg-gray-100 dark:bg-gray-800">
             <div className="flex items-center">
@@ -83,21 +69,6 @@ const SendMessage = ({ setMessages }) => {
                 </div>
             </div>
         </div>
-        // <form onSubmit={(event) => sendMessage(event)} className="send-message">
-        //     <label htmlFor="messageInput" hidden>
-        //         Enter Message
-        //     </label>
-        //     <input
-        //         id="messageInput"
-        //         name="messageInput"
-        //         type="text"
-        //         className="form-input__input"
-        //         placeholder="type message..."
-        //         value={message}
-        //         onChange={(e) => setMessage(e.target.value)}
-        //     />
-        //     <button type="submit">Send</button>
-        // </form>
     );
 };
 

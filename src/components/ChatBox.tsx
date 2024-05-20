@@ -1,17 +1,20 @@
-import { useState, useEffect, createContext } from 'react'
+import { useState, useEffect, createContext, useMemo } from 'react'
 import ConversationsBar from './ConversationsBar';
 import Chat from './Chat';
 import Conversation from '../dtos/responses/Conversation';
 
-export const ConversationContext = createContext({ currentConversation: new Conversation(), setCurrentConversation: (arg: Conversation) => { arg } });
+export const ConversationContext = createContext<{
+    currentConversation: Conversation,
+    setCurrentConversation: React.Dispatch<React.SetStateAction<Conversation>>,
+    conversations: Conversation[];
+    setConversations: React.Dispatch<React.SetStateAction<Conversation[]>>
+} | undefined>(undefined);
 
 const ChatBox = () => {
     const [conversations, setConversations] = useState<Conversation[]>([])
     const [currentConversation, setCurrentConversation] = useState(conversations[0])
-    console.log("yooo")
-    console.log(currentConversation)
-    console.log(conversations)
 
+    const conversationsMemo = useMemo(() => ({ conversations, setConversations, currentConversation, setCurrentConversation }), [conversations, currentConversation])
 
     useEffect(() => {
         fetch('/api/chats')
@@ -25,7 +28,7 @@ const ChatBox = () => {
     }, []);
 
     return (
-        <ConversationContext.Provider value={{ currentConversation, setCurrentConversation }}>
+        <ConversationContext.Provider value={conversationsMemo}>
             <div className="flex bg-white dark:bg-gray-900">
                 <div className="w-80 h-screen dark:bg-gray-800 bg-gray-100 p-2 hidden md:block">
                     <div className="h-full overflow-y-auto">
@@ -39,7 +42,7 @@ const ChatBox = () => {
                             </div>
                         </div>
                         <div className="text-lg font-semibol text-gray-600 dark:text-gray-200 p-3">Recent</div>
-                        <ConversationsBar conversations={conversations} />
+                        <ConversationsBar />
                     </div>
                 </div>
                 <div className="flex-grow  h-screen p-2 rounded-md">

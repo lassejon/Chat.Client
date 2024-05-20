@@ -1,15 +1,17 @@
 import ConversationsBarItem from './ConversationsBarItem';
-import Conversation from '../dtos/responses/Conversation';
-const ConversationsBar = ({ conversations }: { conversations: Conversation[] }) => {
+import { useContext } from 'react';
+import { ConversationContext } from './ChatBox';
+const ConversationsBar = () => {
+    const conversationState = useContext(ConversationContext);
 
     return (
         <div className="p-1">
             {
-                conversations.map((item, index) => (
+                conversationState?.conversations.map((item, index) => (
                     <ConversationsBarItem
                         key={index}
                         conversation={item}
-                        active={index === 0 ? true : false}
+                        active={item.id === conversationState.currentConversation?.id}
                     />
                 ))
             }

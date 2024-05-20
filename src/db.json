@@ -5,7 +5,7 @@
         "lastName": "Marquardt Frederiksen",
         "email": "lasss@live.dk",
         "jwtToken": {
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJsYXNzc0BsaXZlLmRrIiwiL2luZGV4IjoiMSIsIi9pZCI6IjAyNDYxY2IxLTRmZjQtNDkzMy04MGE3LWU0YTJiMzdhZDA2MSIsImp0aSI6IkQ5MzhCRDBDLTUyMTItNDEyNS1CNEQxLUYyRkVBNzQ5QkRCQiIsImV4cCI6MTcxNjE1ODM0OSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzAiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDozMDAwIn0.cpVxQFeCDqwWEaZojRMixaskFERNNSsN5-9ICyq2zC8"
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJsYXNzc0BsaXZlLmRrIiwiL2luZGV4IjoiMSIsIi9pZCI6IjAyNDYxY2IxLTRmZjQtNDkzMy04MGE3LWU0YTJiMzdhZDA2MSIsImp0aSI6IjlDM0VENUU1LUE1MjEtNDVERS1CM0JELThDNzQwOUUyRUZBMCIsImV4cCI6MTcxNjIwMDQ3MiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzAiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDozMDAwIn0.vUeNG8g2C_BUhqQS3I_1Bqb8wUA8epC6cdXW9Y0iTsk"
         }
     },
     "chats": [
@@ -31,7 +31,7 @@
             "lastMessage": "Skal vi mødes i morgen?",
             "lastMessageTime": "2020-12-12T12:12:12",
             "lastMessageSender": "Olatz",
-            "unreadMessages": 1
+            "unreadMessages": 2
         }
     ],
     "messages": [

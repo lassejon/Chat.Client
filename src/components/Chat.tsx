@@ -9,14 +9,14 @@ const Chat = () => {
     const conversationState = useContext(ConversationContext);
 
     useEffect(() => {
-        fetch(`/api/messages/${conversationState.currentConversation?.id}`)
+        fetch(`/api/messages/${conversationState?.currentConversation?.id}`)
             .then(response => response.json())
             .then(data => setMessages(data.messages))
             .catch(err => {
                 console.log(err)
                 setMessages([]);
             });
-    }, [conversationState]);
+    }, [conversationState?.currentConversation]);
 
     return (
         < div className="flex-grow h-full flex flex-col" >
@@ -31,7 +31,7 @@ const Chat = () => {
                         <img className="w-14 h-14 rounded-full" src="https://cdn.pixabay.com/photo/2017/01/31/21/23/avatar-2027366_960_720.png" alt="avatar" />
                     </div>
                     <div className="flex-grow p-2 text-left">
-                        <div className="text-md text-gray-50 font-semibold">{conversationState.currentConversation?.name}</div>
+                        <div className="text-md text-gray-50 font-semibold">{conversationState?.currentConversation?.name}</div>
                         {/* <div className="flex items-center">
                             <div className="w-2 h-2 bg-green-300 rounded-full"></div>
                             <div className="text-xs text-gray-50 ml-1">
