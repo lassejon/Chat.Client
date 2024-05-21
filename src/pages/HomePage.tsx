@@ -1,19 +1,28 @@
-const Hero = ({ title = 'Find Your Next React Job', subtitle = 'Browse our React jobs and start your career today' }: { title?: string, subtitle?: string }) => {
+import { Navigate } from 'react-router-dom'
+import { useContext } from 'react'
+import { AuthenticationContext } from '../layouts/MainLayout'
+
+const Hero = ({ title = 'Chat Roulette', subtitle = 'Login or register to start chatting' }: { title?: string, subtitle?: string }) => {
+    const state = useContext(AuthenticationContext);
     return (
-        <section className="bg-gray-700 py-20 mb-4">
-            <div
-                className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center"
-            >
-                <div className="text-center">
-                    <h1 className="text-4xl font-extrabold text-white sm:text-5xl md:text-6xl">
-                        {title}
-                    </h1>
-                    <p className="my-4 text-xl text-white">
-                        {subtitle}
-                    </p>
+        <>
+            {state.isAuthenticated && <Navigate to={"/conversations"} />}
+            <section className="bg-gray-700 py-20 mb-4">
+                <div
+                    className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center"
+                >
+                    <div className="text-center">
+                        <h1 className="text-4xl font-extrabold text-white sm:text-5xl md:text-6xl">
+                            {title}
+                        </h1>
+                        <p className="my-4 text-xl text-white">
+                            {subtitle}
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
+
     )
 }
 
