@@ -12,7 +12,9 @@ export const ConversationContext = createContext<{
     conversations: Conversation[],
     setConversations: React.Dispatch<React.SetStateAction<Conversation[]>>,
     createConversation: boolean,
-    setCreateConversation: React.Dispatch<React.SetStateAction<boolean>>
+    setCreateConversation: React.Dispatch<React.SetStateAction<boolean>>,
+    messages: Message[],
+    setMessages: React.Dispatch<React.SetStateAction<Message[]>>
 } | undefined>(undefined);
 
 const ChatBox = () => {
@@ -21,7 +23,24 @@ const ChatBox = () => {
     const [createConversation, setCreateConversation] = useState(false)
     const signalRConnection = useContext(SignalRContext);
 
-    const conversationsMemo = useMemo(() => ({ conversations, setConversations, currentConversation, setCurrentConversation, createConversation, setCreateConversation }), [conversations, currentConversation, createConversation])
+    const [messages, setMessages] = useState<Message[]>([])
+    const conversationsMemo = useMemo(() => ({ conversations, setConversations, currentConversation, setCurrentConversation, createConversation, setCreateConversation, messages, setMessages }), [conversations, currentConversation, createConversation, messages])
+
+
+    useEffect(() => {
+        fetch(`/api/conversations/${currentConversation?.id ?? ''}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${localStorage.getItem('_auth_type')} ${localStorage.getItem('_auth')}`
+            }
+        })
+            .then(response => response.json())
+            .then(data => setMessages(data.messages ?? []))
+            .catch(err => {
+                console.log(err)
+                setMessages([]);
+            });
+    }, [currentConversation]);
 
     useEffect(() => {
         fetch('/api/conversations', {
@@ -44,8 +63,6 @@ const ChatBox = () => {
         const { connection } = signalRConnection;
 
         connection?.on("ReceiveMessage", (message: Message) => {
-            console.log("on" + message.content + " " + message.sentAt + " " + message.userId);
-
             setConversations((prevConversations) => {
                 const conversationIndex = prevConversations.findIndex((conversation) => conversation.id === message.conversationId);
                 if (conversationIndex === -1) return prevConversations;
@@ -64,6 +81,8 @@ const ChatBox = () => {
 
                 return updatedConversations;
             });
+
+            setMessages((prevMessages) => [...prevMessages, message]);
         });
 
         return () => {

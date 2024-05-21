@@ -41,9 +41,8 @@ const SendMessage = ({ setMessages }: { setMessages: React.Dispatch<React.SetSta
 
         conversationState?.setConversations(updatedConversations);
 
-        setMessages((prevMessages: Message[]) => [...prevMessages, messageToSend]);
-        const x = await signalRConnection?.connection?.invoke("SendMessage", messageToSend);
-        console.log('invoke SendMessage: ' + x);
+        const sentMessage = await signalRConnection?.connection?.invoke("SendMessage", messageToSend);
+        setMessages((prevMessages: Message[]) => [...prevMessages, sentMessage]);
         setMessage("");
     };
 

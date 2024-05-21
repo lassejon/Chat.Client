@@ -1,28 +1,12 @@
-import MessageDto from '../dtos/requests/Message'
+// import MessageDto from '../dtos/requests/Message'
 import Message from './Message'
 import { ConversationContext } from './ChatBox'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import SendMessage from './SendMessage';
 import CreateNewConversation from './CreateNewConversation';
 
 const Chat = () => {
-    const [messages, setMessages] = useState<MessageDto[]>([])
-    const conversationState = useContext(ConversationContext);
-
-    useEffect(() => {
-        fetch(`/api/conversations/${conversationState?.currentConversation?.id ?? ''}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `${localStorage.getItem('_auth_type')} ${localStorage.getItem('_auth')}`
-            }
-        })
-            .then(response => response.json())
-            .then(data => setMessages(data.messages ?? []))
-            .catch(err => {
-                console.log(err)
-                setMessages([]);
-            });
-    }, [conversationState?.currentConversation]);
+    const conversationState = useContext(ConversationContext)
 
     return (
         < div className="flex-grow h-full flex flex-col" >
@@ -54,12 +38,12 @@ const Chat = () => {
             </div>
             <div className="w-full flex-grow bg-gray-100 dark:bg-gray-900 my-2 p-2 overflow-y-auto">
                 {
-                    messages.map((message) => (
+                    conversationState?.messages.map((message) => (
                         <Message key={message.id} message={message} />
                     ))
                 }
             </div>
-            <SendMessage setMessages={setMessages} />
+            <SendMessage setMessages={conversationState!.setMessages} />
         </div >
     )
 }
