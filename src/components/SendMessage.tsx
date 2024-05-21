@@ -1,6 +1,6 @@
 import { useState, useContext, FormEvent } from "react";
 import { IoMdSend } from "react-icons/io";
-import { ConversationContext } from "./ChatBox";
+import { ConversationContext } from "./ConversationPage";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import AuthenticatedUser from "../dtos/responses/AuthenticatedUser";
 import Message from "../dtos/requests/Message";

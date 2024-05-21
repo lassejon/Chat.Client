@@ -1,8 +1,8 @@
-// ConversationsBarItem.tsx
 import React, { useContext } from 'react';
 import Conversation from '../dtos/responses/Conversation';
-import { ConversationContext } from './ChatBox';
+import { ConversationContext } from './ConversationPage';
 import formatDate from '../services/DateFormatter';
+import ConversationRequest from '../dtos/requests/ConversationRequest';
 
 const ConversationsBarItem: React.FC<{ conversation: Conversation; active: boolean }> = ({ conversation, active }) => {
     const conversationState = useContext(ConversationContext);
@@ -15,6 +15,8 @@ const ConversationsBarItem: React.FC<{ conversation: Conversation; active: boole
             conv.id === conversation.id ? conversation : conv
         );
         conversationState?.setConversations(conversations);
+        // conversationState?.setCreateConversation(false);
+        // conversationState?.setCreateConversationRequest(new ConversationRequest());
     };
 
     return (

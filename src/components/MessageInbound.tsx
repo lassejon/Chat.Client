@@ -1,6 +1,6 @@
 import Message from "../dtos/requests/Message";
 import { useContext } from "react";
-import { ConversationContext } from "./ChatBox";
+import { ConversationContext } from "./ConversationPage";
 import formatDate from "../services/DateFormatter";
 
 function MessageInbound({ message }: { message: Message }) {

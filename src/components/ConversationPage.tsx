@@ -2,9 +2,10 @@ import { useState, useEffect, createContext, useMemo, useContext } from 'react'
 import ConversationsBar from './ConversationsBar';
 import Chat from './Chat';
 import Conversation from '../dtos/responses/Conversation';
-import CreateNewConversation from './CreateNewConversation';
+import CreateNewConversationButton from './CreateNewConversationButton';
 import { SignalRContext } from "../services/signal-r/SignalRContext";
 import Message from '../dtos/requests/Message';
+import ConversationRequest from '../dtos/requests/ConversationRequest';
 
 export const ConversationContext = createContext<{
     currentConversation: Conversation,
@@ -14,17 +15,21 @@ export const ConversationContext = createContext<{
     createConversation: boolean,
     setCreateConversation: React.Dispatch<React.SetStateAction<boolean>>,
     messages: Message[],
-    setMessages: React.Dispatch<React.SetStateAction<Message[]>>
+    setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
+    createConversationRequest: ConversationRequest,
+    setCreateConversationRequest: React.Dispatch<React.SetStateAction<ConversationRequest>>
 } | undefined>(undefined);
 
-const ChatBox = () => {
+const ConversationPage = () => {
     const [conversations, setConversations] = useState<Conversation[]>([])
     const [currentConversation, setCurrentConversation] = useState(conversations[0])
     const [createConversation, setCreateConversation] = useState(false)
+    const [createConversationRequest, setCreateConversationRequest] = useState(new ConversationRequest());
     const signalRConnection = useContext(SignalRContext);
 
     const [messages, setMessages] = useState<Message[]>([])
-    const conversationsMemo = useMemo(() => ({ conversations, setConversations, currentConversation, setCurrentConversation, createConversation, setCreateConversation, messages, setMessages }), [conversations, currentConversation, createConversation, messages])
+    const conversationsMemo = useMemo(() => ({ conversations, setConversations, currentConversation, setCurrentConversation, createConversation, setCreateConversation, messages, setMessages, createConversationRequest, setCreateConversationRequest }), [conversations, currentConversation, createConversation, messages, createConversationRequest])
+
 
 
     useEffect(() => {
@@ -82,7 +87,8 @@ const ChatBox = () => {
                 return updatedConversations;
             });
 
-            setMessages((prevMessages) => [...prevMessages, message]);
+            if (currentConversation?.id === message.conversationId)
+                setMessages((prevMessages) => [...prevMessages, message]);
         });
 
         return () => {
@@ -97,7 +103,7 @@ const ChatBox = () => {
                     <div className="h-full overflow-y-auto">
                         <div className="flex flex justify-between p-2">
                             <div className="text-xl font-extrabold text-gray-600 dark:text-gray-200 p-3">Conversations</div>
-                            <CreateNewConversation />
+                            <CreateNewConversationButton />
                         </div>
                         <div className="search-chat flex p-3">
                             <input className="input text-gray-700 dark:text-gray-200 text-sm p-3 focus:outline-none bg-gray-200 dark:bg-gray-700  w-full rounded-l-md" type="text" placeholder="Search Messages" />
@@ -119,4 +125,4 @@ const ChatBox = () => {
     )
 }
 
-export default ChatBox
+export default ConversationPage
