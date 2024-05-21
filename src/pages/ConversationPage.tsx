@@ -91,10 +91,64 @@ const ConversationPage = () => {
                 setMessages((prevMessages) => [...prevMessages, message]);
         });
 
+        connection?.on("DeletedConversation", (conversationId: string) => {
+            setConversations((prevConversations) => {
+                let updatedConversations = [...prevConversations];
+
+                console.log("before deleted conversation id: " + conversationId);
+                updatedConversations.forEach((conversation) => {
+                    console.log(conversation.id);
+                });
+                updatedConversations = updatedConversations.filter((conversation) => conversation.id !== conversationId);
+
+                console.log("after deleted conversation id: " + conversationId);
+
+                updatedConversations.forEach((conversation) => {
+                    console.log(conversation.id);
+                });
+
+                return updatedConversations;
+            });
+
+            if (currentConversation?.id === conversationId) {
+                setMessages([]);
+                setCurrentConversation(new Conversation());
+            }
+        });
+
         return () => {
             connection?.off("ReceiveMessage");
         };
     }, [signalRConnection, currentConversation]);
+
+    const deleteConversation = async () => {
+        const deleted = await signalRConnection?.connection?.invoke("DeleteConversation", currentConversation?.id);
+
+        console.log("deleted?" + deleted);
+
+        if (!deleted) return;
+
+        setConversations((prevConversations) => {
+            let updatedConversations = [...prevConversations];
+
+            console.log("before deleted conversation id: " + currentConversation?.id);
+            updatedConversations.forEach((conversation) => {
+                console.log(conversation.id);
+            });
+            updatedConversations = updatedConversations.filter((conversation) => conversation.id !== currentConversation?.id);
+
+            console.log("after deleted conversation id: " + currentConversation?.id);
+
+            updatedConversations.forEach((conversation) => {
+                console.log(conversation.id);
+            });
+
+            return updatedConversations;
+        });
+
+        setMessages([]);
+        setCurrentConversation(new Conversation());
+    }
 
     return (
         <ConversationContext.Provider value={conversationsMemo}>
@@ -118,7 +172,7 @@ const ConversationPage = () => {
                     </div>
                 </div>
                 <div className="flex-grow  h-screen p-2 rounded-md">
-                    <Chat />
+                    <Chat deleteConversation={deleteConversation} />
                 </div>
             </div>
         </ConversationContext.Provider>
