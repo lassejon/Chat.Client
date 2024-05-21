@@ -4,13 +4,16 @@ import { ConversationContext } from "./ChatBox";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import AuthenticatedUser from "../dtos/responses/AuthenticatedUser";
 import Message from "../dtos/requests/Message";
+import { SignalRContext } from "../services/signal-r/SignalRContext";
 
 const SendMessage = ({ setMessages }: { setMessages: React.Dispatch<React.SetStateAction<Message[]>> }) => {
     const [message, setMessage] = useState("");
     const conversationState = useContext(ConversationContext);
     const authUser = useAuthUser<AuthenticatedUser>();
+    const signalRConnection = useContext(SignalRContext);
 
-    const sendMessage = (event: FormEvent<HTMLFormElement>) => {
+
+    const sendMessage = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (message.trim() === "") {
             alert("Enter valid message");
@@ -19,7 +22,7 @@ const SendMessage = ({ setMessages }: { setMessages: React.Dispatch<React.SetSta
 
         const messageToSend: Message = {
             id: crypto.randomUUID(),
-            chatId: conversationState!.currentConversation?.id,
+            conversationId: conversationState!.currentConversation?.id,
             content: message,
             userId: authUser!.id,
             sender: authUser!.firstName,
@@ -27,8 +30,8 @@ const SendMessage = ({ setMessages }: { setMessages: React.Dispatch<React.SetSta
         };
         const currentConversation = { ...conversationState!.currentConversation };
         if (currentConversation) {
-            currentConversation.lastMessage = messageToSend.content;
-            currentConversation.latestMessageAt = messageToSend.sentAt.toISOString();
+            currentConversation.latestMessage = messageToSend.content;
+            currentConversation.latestMessageAt = messageToSend.sentAt;
         }
 
         // conversationState?.setCurrentConversation(currentConversation!);
@@ -39,6 +42,8 @@ const SendMessage = ({ setMessages }: { setMessages: React.Dispatch<React.SetSta
         conversationState?.setConversations(updatedConversations);
 
         setMessages((prevMessages: Message[]) => [...prevMessages, messageToSend]);
+        const x = await signalRConnection?.connection?.invoke("SendMessage", messageToSend);
+        console.log('invoke SendMessage: ' + x);
         setMessage("");
     };
 

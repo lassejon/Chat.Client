@@ -10,6 +10,7 @@ import AuthProvider from 'react-auth-kit';
 import store from './services/authentication/AuthenticationStore';
 import AuthOutlet from '@auth-kit/react-router/AuthOutlet'
 import ChatBox from './components/ChatBox'
+import { SignalRProvider } from './services/signal-r/SignalRContext'
 
 function App() {
   const login = async (loginRequest: Login): Promise<[boolean, AuthenticatedUser]> => {
@@ -20,17 +21,6 @@ function App() {
       },
       body: JSON.stringify(loginRequest)
     })
-    // console.log('res');
-    // console.log(res);
-
-    // console.log('loginRequest');
-    // console.log(loginRequest);
-    // const res = await fetch('http://localhost:44330/login', {
-    //   method: 'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // })
 
     const data = ((await res.json()) ?? {}) as AuthenticatedUser;
 
@@ -43,11 +33,13 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="/*" element={<NotFoundPage />} />
         <Route path="/login" element={<LoginPage login={login} />} />
-        <Route path="/chat" element={<ChatBox />} />
+        <Route element={<SignalRProvider />} >
+          <Route path="/conversations" element={<ChatBox />} />
+        </Route>
         <Route element={<AuthOutlet fallbackPath='/login' />}>
           <Route path="/secure" element={<div>very secret sauce</div>} />
         </Route>
-      </Route>
+      </Route >
     )
   )
   return (

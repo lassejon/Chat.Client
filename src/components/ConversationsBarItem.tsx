@@ -2,6 +2,7 @@
 import React, { useContext } from 'react';
 import Conversation from '../dtos/responses/Conversation';
 import { ConversationContext } from './ChatBox';
+import formatDate from '../services/DateFormatter';
 
 const ConversationsBarItem: React.FC<{ conversation: Conversation; active: boolean }> = ({ conversation, active }) => {
     const conversationState = useContext(ConversationContext);
@@ -29,9 +30,9 @@ const ConversationsBarItem: React.FC<{ conversation: Conversation; active: boole
                     <div className="flex-grow p-2">
                         <div className="flex justify-between items-center">
                             <div className="text-sm font-medium text-gray-700 dark:text-gray-200">{conversation.name}</div>
-                            <div className="text-xs text-gray-400 dark:text-gray-300">{conversation.latestMessageAt}</div>
+                            <div className="text-xs text-gray-400 dark:text-gray-300">{formatDate(conversation.latestMessageAt)}</div>
                         </div>
-                        <div className="text-left text-sm text-gray-500 dark:text-gray-400 w-40 truncate">{conversation.lastMessage}</div>
+                        <div className="text-left text-sm text-gray-500 dark:text-gray-400 w-40 truncate">{conversation.latestMessage}</div>
                     </div>
                     {conversation.unreadMessages > 0 && (
                         <div className="ml-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">

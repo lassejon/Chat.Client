@@ -5,8 +5,8 @@ export default class Conversation {
     name: string = '';
     messages: Message[] = [];
     participants: Participant[] = [];
-    lastMessage: string = '';
-    latestMessageAt: string = '';
+    latestMessage: string = '';
+    latestMessageAt: Date = new Date();
     unreadMessages: number = 0;
 }
 

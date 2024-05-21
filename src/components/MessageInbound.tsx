@@ -1,22 +1,12 @@
 import Message from "../dtos/requests/Message";
 import { useContext } from "react";
 import { ConversationContext } from "./ChatBox";
-import { format, isAfter, subDays } from 'date-fns';
+import formatDate from "../services/DateFormatter";
 
 function MessageInbound({ message }: { message: Message }) {
     const authenticationState = useContext(ConversationContext);
     const messageSender = authenticationState?.currentConversation?.participants.find(participant => participant.id === message.userId);
 
-    const formatDate = (date: Date): string => {
-        const oneWeekAgo = subDays(new Date(), 7);
-        if (isAfter(date, oneWeekAgo)) {
-            // Date is within the last week
-            return format(date, 'EEEE h:mm:ss a');
-        } else {
-            // Date is more than a week old
-            return format(date, 'MMMM do, yyyy h:mm:ss a');
-        }
-    };
     const dateString = formatDate(message.sentAt)
 
     return (

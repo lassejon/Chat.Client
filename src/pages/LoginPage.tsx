@@ -22,8 +22,6 @@ const LoginPage = ({ login }: { login: (loginRequest: Login) => Promise<[boolean
             return;
         }
 
-        console.log(authenticatedUser);
-
         const authConfig = {
             auth: {
                 token: authenticatedUser.jwtToken.token,
@@ -37,7 +35,6 @@ const LoginPage = ({ login }: { login: (loginRequest: Login) => Promise<[boolean
         if (!isSignedIn) {
             toast.error('Login failed');
         } else {
-            console.log('login' + state.setIsAuthenticated);
             state.setIsAuthenticated(true);
             toast.success('Login successful');
             navigate('/secure');

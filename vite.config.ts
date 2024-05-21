@@ -14,6 +14,12 @@ export default defineConfig({
         secure: false,
         agent: https.Agent(),
         // rewrite: (path) => path.replace(/^\/api/, '')
+      },
+      '/chat': {
+        target: 'https://localhost:44330',
+        // changeOrigin: true,
+        secure: false,
+        agent: https.Agent(),
       }
     }
   }

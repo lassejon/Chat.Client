@@ -1,8 +1,10 @@
-import { useState, useEffect, createContext, useMemo } from 'react'
+import { useState, useEffect, createContext, useMemo, useContext } from 'react'
 import ConversationsBar from './ConversationsBar';
 import Chat from './Chat';
 import Conversation from '../dtos/responses/Conversation';
 import CreateNewConversation from './CreateNewConversation';
+import { SignalRContext } from "../services/signal-r/SignalRContext";
+import Message from '../dtos/requests/Message';
 
 export const ConversationContext = createContext<{
     currentConversation: Conversation,
@@ -17,13 +19,10 @@ const ChatBox = () => {
     const [conversations, setConversations] = useState<Conversation[]>([])
     const [currentConversation, setCurrentConversation] = useState(conversations[0])
     const [createConversation, setCreateConversation] = useState(false)
+    const signalRConnection = useContext(SignalRContext);
 
     const conversationsMemo = useMemo(() => ({ conversations, setConversations, currentConversation, setCurrentConversation, createConversation, setCreateConversation }), [conversations, currentConversation, createConversation])
 
-    currentConversation?.participants.forEach(participant => {
-        console.log(`participant: ${participant.firstName} ${participant.lastName}`);
-    });
-    console.log(`current conversation: ${[currentConversation?.participants]}`);
     useEffect(() => {
         fetch('/api/conversations', {
             headers: {
@@ -33,11 +32,44 @@ const ChatBox = () => {
         })
             .then(response => response.json())
             .then(data => {
-                setConversations(data)
-                setCurrentConversation(data[0]);
+                setConversations(data);
+                setCurrentConversation(data[0] || null); // Set currentConversation after fetching data
             })
             .catch(err => console.log("error: " + err));
     }, []);
+
+    useEffect(() => {
+        if (!signalRConnection) return;
+
+        const { connection } = signalRConnection;
+
+        connection?.on("ReceiveMessage", (message: Message) => {
+            console.log("on" + message.content + " " + message.sentAt + " " + message.userId);
+
+            setConversations((prevConversations) => {
+                const conversationIndex = prevConversations.findIndex((conversation) => conversation.id === message.conversationId);
+                if (conversationIndex === -1) return prevConversations;
+
+                const updatedConversations = [...prevConversations];
+                const updatedConversation = { ...updatedConversations[conversationIndex] };
+
+                updatedConversation.latestMessage = message.content;
+                updatedConversation.latestMessageAt = message.sentAt;
+
+                if (currentConversation?.id !== message.conversationId) {
+                    updatedConversation.unreadMessages = (updatedConversation.unreadMessages ?? 0) + 1;
+                }
+
+                updatedConversations[conversationIndex] = updatedConversation;
+
+                return updatedConversations;
+            });
+        });
+
+        return () => {
+            connection?.off("ReceiveMessage");
+        };
+    }, [signalRConnection, currentConversation]);
 
     return (
         <ConversationContext.Provider value={conversationsMemo}>
