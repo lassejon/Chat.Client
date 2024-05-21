@@ -1,6 +1,6 @@
 // import MessageDto from '../dtos/requests/Message'
 import Message from './Message'
-import { ConversationContext } from './ConversationPage'
+import { ConversationContext } from '../pages/ConversationPage'
 import { useContext, useEffect } from 'react'
 import SendMessage from './SendMessage';
 import CreateNewConversation from './CreateNewConversation';

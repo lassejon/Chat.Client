@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Conversation from '../dtos/responses/Conversation';
-import { ConversationContext } from './ConversationPage';
+import { ConversationContext } from '../pages/ConversationPage';
 import formatDate from '../services/DateFormatter';
 import ConversationRequest from '../dtos/requests/ConversationRequest';
 

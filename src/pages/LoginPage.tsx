@@ -37,7 +37,7 @@ const LoginPage = ({ login }: { login: (loginRequest: Login) => Promise<[boolean
         } else {
             state.setIsAuthenticated(true);
             toast.success('Login successful');
-            navigate('/secure');
+            navigate('/conversations');
         }
     };
 

@@ -9,7 +9,7 @@ import AuthenticatedUser from './dtos/responses/AuthenticatedUser'
 import AuthProvider from 'react-auth-kit';
 import store from './services/authentication/AuthenticationStore';
 import AuthOutlet from '@auth-kit/react-router/AuthOutlet'
-import ConversationPage from './components/ConversationPage'
+import ConversationPage from './pages/ConversationPage'
 import { SignalRProvider } from './services/signal-r/SignalRContext'
 
 function App() {
@@ -33,11 +33,11 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="/*" element={<NotFoundPage />} />
         <Route path="/login" element={<LoginPage login={login} />} />
-        <Route element={<SignalRProvider />} >
-          <Route path="/conversations" element={<ConversationPage />} />
-        </Route>
+
         <Route element={<AuthOutlet fallbackPath='/login' />}>
-          <Route path="/secure" element={<div>very secret sauce</div>} />
+          <Route element={<SignalRProvider />} >
+            <Route path="/conversations" element={<ConversationPage />} />
+          </Route>
         </Route>
       </Route >
     )

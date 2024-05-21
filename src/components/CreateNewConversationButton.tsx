@@ -1,6 +1,6 @@
 import { IoCreateOutline } from "react-icons/io5";
 import { useContext } from "react";
-import { ConversationContext } from "./ConversationPage";
+import { ConversationContext } from "../pages/ConversationPage";
 
 const CreateNewConversationButton = () => {
     const conversationState = useContext(ConversationContext)

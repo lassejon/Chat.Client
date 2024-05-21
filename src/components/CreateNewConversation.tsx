@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { ConversationContext } from "./ConversationPage";
+import { ConversationContext } from "../pages/ConversationPage";
 import { Participant } from "../dtos/responses/Conversation";
 
 const CreateNewConversation = () => {

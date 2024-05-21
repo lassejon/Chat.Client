@@ -1,8 +1,8 @@
 import { useState, useEffect, createContext, useMemo, useContext } from 'react'
-import ConversationsBar from './ConversationsBar';
-import Chat from './Chat';
+import ConversationsBar from '../components/ConversationsBar';
+import Chat from '../components/Chat';
 import Conversation from '../dtos/responses/Conversation';
-import CreateNewConversationButton from './CreateNewConversationButton';
+import CreateNewConversationButton from '../components/CreateNewConversationButton';
 import { SignalRContext } from "../services/signal-r/SignalRContext";
 import Message from '../dtos/requests/Message';
 import ConversationRequest from '../dtos/requests/ConversationRequest';

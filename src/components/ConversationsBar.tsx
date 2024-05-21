@@ -1,6 +1,6 @@
 import ConversationsBarItem from './ConversationsBarItem';
 import { useContext } from 'react';
-import { ConversationContext } from './ConversationPage';
+import { ConversationContext } from '../pages/ConversationPage';
 const ConversationsBar = () => {
     const conversationState = useContext(ConversationContext);
 
